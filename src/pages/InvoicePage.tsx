@@ -38,6 +38,7 @@ import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { fetchInvoices, Invoice } from "@/services/api";
 import BillPreview from "@/components/BillPreview";
 import { useToast } from "@/hooks/use-toast";
+import { data } from "react-router-dom";
 
 const InvoicePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -49,132 +50,132 @@ const InvoicePage = () => {
   const { toast } = useToast();
 
   // Mock invoice data
-  const mockInvoices: Invoice[] = [
-    {
-      _id: "1",
-      invoiceNumber: "INV-2023-001",
-      customer: {
-        _id: "c1",
-        name: "sujeeth",
-        phone: "555-123-4567",
-        address: {
-          street: "123 Main St",
-          city: "Anytown",
-          state: "CA",
-          zipCode: "12345",
-          country: "USA"
-        }
-      },
-      items: [
-        {
-          partId: "1",
-          partName: "Brake Pad",
-          partNumber: "BP-1234",
-          quantity: 2,
-          unitPrice: 49.99,
-          discount: 0,
-          total: 99.98
-        },
-        {
-          partId: "2",
-          partName: "Oil Filter",
-          partNumber: "OF-5678",
-          quantity: 1,
-          unitPrice: 12.99,
-          discount: 0,
-          total: 12.99
-        }
-      ],
-      subtotal: 112.97,
-      tax: 9.04,
-      discount: 0,
-      total: 122.01,
-      paymentMethod: "Credit Card",
-      notes: "Customer requested fast delivery",
-      createdAt: new Date("2023-12-15"),
-      dueDate: new Date("2024-01-15")
-    },
-    {
-      _id: "2",
-      invoiceNumber: "INV-2023-002",
-      customer: {
-        _id: "c2",
-        name: "sujeeth",
-        phone: "555-987-6543",
-        address: {
-          street: "456 Oak Ave",
-          city: "Somewhere",
-          state: "CA",
-          zipCode: "54321",
-          country: "USA"
-        }
-      },
-      items: [
-        {
-          partId: "3",
-          partName: "Spark Plug",
-          partNumber: "SP-9012",
-          quantity: 4,
-          unitPrice: 8.99,
-          discount: 5.00,
-          total: 30.96
-        }
-      ],
-      subtotal: 35.96,
-      tax: 2.88,
-      discount: 5.00,
-      total: 33.84,
-      paymentMethod: "Cash",
-      notes: "",
-      createdAt: new Date("2023-12-20"),
-      dueDate: new Date("2024-01-20")
-    },
-    {
-      _id: "3",
-      invoiceNumber: "INV-2023-003",
-      customer: {
-        _id: "c3",
-        name: "yella",
-        phone: "555-555-5555",
-        address: {
-          street: "789 Pine Rd",
-          city: "Elsewhere",
-          state: "CA",
-          zipCode: "67890",
-          country: "USA"
-        }
-      },
-      items: [
-        {
-          partId: "4",
-          partName: "Transmission Fluid",
-          partNumber: "TF-1234",
-          quantity: 2,
-          unitPrice: 22.50,
-          discount: 0,
-          total: 45.00
-        }
-      ],
-      subtotal: 45.00,
-      tax: 3.60,
-      discount: 0,
-      total: 48.60,
-      paymentMethod: "Bank Transfer",
-      notes: "Called customer about late payment",
-      createdAt: new Date("2023-11-10"),
-      dueDate: new Date("2023-12-10")
-    }
-  ];
+  // const mockInvoices: Invoice[] = [
+  //   {
+  //     _id: "1",
+  //     invoiceNumber: "INV-2023-001",
+  //     customer: {
+  //       _id: "c1",
+  //       name: "sujeeth",
+  //       phone: "555-123-4567",
+  //       address: {
+  //         street: "123 Main St",
+  //         city: "Anytown",
+  //         state: "CA",
+  //         zipCode: "12345",
+  //         country: "USA"
+  //       }
+  //     },
+  //     items: [
+  //       {
+  //         partId: "1",
+  //         partName: "Brake Pad",
+  //         partNumber: "BP-1234",
+  //         quantity: 2,
+  //         unitPrice: 49.99,
+  //         discount: 0,
+  //         total: 99.98
+  //       },
+  //       {
+  //         partId: "2",
+  //         partName: "Oil Filter",
+  //         partNumber: "OF-5678",
+  //         quantity: 1,
+  //         unitPrice: 12.99,
+  //         discount: 0,
+  //         total: 12.99
+  //       }
+  //     ],
+  //     subtotal: 112.97,
+  //     tax: 9.04,
+  //     discount: 0,
+  //     total: 122.01,
+  //     paymentMethod: "Credit Card",
+  //     notes: "Customer requested fast delivery",
+  //     createdAt: new Date("2023-12-15"),
+  //     dueDate: new Date("2024-01-15")
+  //   },
+  //   {
+  //     _id: "2",
+  //     invoiceNumber: "INV-2023-002",
+  //     customer: {
+  //       _id: "c2",
+  //       name: "sujeeth",
+  //       phone: "555-987-6543",
+  //       address: {
+  //         street: "456 Oak Ave",
+  //         city: "Somewhere",
+  //         state: "CA",
+  //         zipCode: "54321",
+  //         country: "USA"
+  //       }
+  //     },
+  //     items: [
+  //       {
+  //         partId: "3",
+  //         partName: "Spark Plug",
+  //         partNumber: "SP-9012",
+  //         quantity: 4,
+  //         unitPrice: 8.99,
+  //         discount: 5.00,
+  //         total: 30.96
+  //       }
+  //     ],
+  //     subtotal: 35.96,
+  //     tax: 2.88,
+  //     discount: 5.00,
+  //     total: 33.84,
+  //     paymentMethod: "Cash",
+  //     notes: "",
+  //     createdAt: new Date("2023-12-20"),
+  //     dueDate: new Date("2024-01-20")
+  //   },
+  //   {
+  //     _id: "3",
+  //     invoiceNumber: "INV-2023-003",
+  //     customer: {
+  //       _id: "c3",
+  //       name: "yella",
+  //       phone: "555-555-5555",
+  //       address: {
+  //         street: "789 Pine Rd",
+  //         city: "Elsewhere",
+  //         state: "CA",
+  //         zipCode: "67890",
+  //         country: "USA"
+  //       }
+  //     },
+  //     items: [
+  //       {
+  //         partId: "4",
+  //         partName: "Transmission Fluid",
+  //         partNumber: "TF-1234",
+  //         quantity: 2,
+  //         unitPrice: 22.50,
+  //         discount: 0,
+  //         total: 45.00
+  //       }
+  //     ],
+  //     subtotal: 45.00,
+  //     tax: 3.60,
+  //     discount: 0,
+  //     total: 48.60,
+  //     paymentMethod: "Bank Transfer",
+  //     notes: "Called customer about late payment",
+  //     createdAt: new Date("2023-11-10"),
+  //     dueDate: new Date("2023-12-10")
+  //   }
+  // ];
 
   // Fetch invoices
   const {
-    data: invoices = mockInvoices,
+    data: invoices = [],
     isLoading,
     isError,
   } = useQuery({
     queryKey: ["invoices"],
     queryFn: fetchInvoices,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   });
 
   // Handle view invoice
@@ -358,7 +359,7 @@ const InvoicePage = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {mockInvoices.map((invoice) => (
+                  {invoices.map((invoice) => (
                     <TableRow key={invoice._id}>
                       <TableCell className="font-medium">
                         {invoice.invoiceNumber}
