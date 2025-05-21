@@ -86,7 +86,7 @@ export interface LoginFormData {
 
 
 
-const BASE_URL =  import.meta.env.BASE;;
+const BASE_URL =  'https://billing-website-dkzy.onrender.com/api';
 
 
 const apiRequest = async <T>(
