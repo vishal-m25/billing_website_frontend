@@ -1,5 +1,5 @@
 import { useToast } from "@/components/ui/use-toast";
-import.meta.env.BASE
+
 
 export interface AuthResponse {
   token: string;
@@ -86,7 +86,7 @@ export interface LoginFormData {
 
 
 
-const BASE_URL =  process.env.BASE;
+const BASE_URL =  import.meta.env.BASE;;
 
 
 const apiRequest = async <T>(
