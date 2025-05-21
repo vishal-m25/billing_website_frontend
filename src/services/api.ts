@@ -105,6 +105,7 @@ const apiRequest = async <T>(
   }
 
   try {
+    console.log(BASE_URL+endpoint);
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method,
       headers,
