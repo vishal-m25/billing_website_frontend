@@ -100,7 +100,7 @@ const customerSchema = z.object({
 
     zipCode: z
       .string()
-      .regex(/^\d{6}/, "Invalid US zip code"),
+      .regex(/^\d{6}$/, "Zip code must be exactly 6 digits"),
 
     country: z
       .string()
@@ -318,13 +318,10 @@ const filteredParts = useMemo(() => {
       invoiceNumber,
       customer,
       items: invoiceItems,
-      subtotal,
       tax: taxAmount,
       discount: totalDiscount,
       total,
-      paymentMethod,
-      notes,
-      dueDate: new Date(new Date().setDate(new Date().getDate() + 30)),
+
     };
 
     try {
@@ -363,7 +360,7 @@ const filteredParts = useMemo(() => {
   }
 
 
-  const handleGenerateBill = () => {
+  const handleGenerateBill = async () => {
     if (!selectedCustomer || invoiceItems.length === 0) {
       toast({
         variant: "destructive",
@@ -374,13 +371,27 @@ const filteredParts = useMemo(() => {
     }
 
     const billData = {
+      invoiceNumber:invoiceNumber,
       customer: selectedCustomer,
       items: invoiceItems,
       discount: totalDiscount,
+      tax: taxAmount,
       total: total,
-      date: new Date().toLocaleDateString(),
     };
-
+  try {
+      await api.createInvoiceWithToast(billData);
+      // Reset form after successful creation
+      setSelectedCustomer("");
+      setInvoiceItems([]);
+      setNotes("");
+      setInvoiceNumber(
+        `INV-${new Date().getFullYear()}-${Math.floor(Math.random() * 1000)
+          .toString()
+          .padStart(3, "0")}`
+      );
+    } catch (error) {
+      console.error("Error creating invoice:", error);
+    }
     setCurrentBillData(billData);
     setIsBillPreviewOpen(true);
   };

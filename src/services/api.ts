@@ -60,14 +60,10 @@ export interface Invoice {
   invoiceNumber: string;
   customer: Customer;
   items: InvoiceItem[];
-  subtotal: number;
   tax: number;
   discount: number;
   total: number;
-  paymentMethod: string;
-  notes: string;
   createdAt?: Date;
-  dueDate: Date;
 }
 
 
