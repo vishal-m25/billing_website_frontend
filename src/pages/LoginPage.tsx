@@ -165,9 +165,9 @@ const LoginPage = () => {
         <CardContent>
           {showOtpVerification ? (
             <div className="space-y-4">
-  <h2 className="text-lg font-medium text-center">Verify your phone number</h2>
+  <h2 className="text-lg font-medium text-center">Verify your Email</h2>
   <p className="text-center text-sm text-muted-foreground">
-    We've sent a 6-digit verification code to your phone
+    We've sent a 6-digit verification code to your mail
   </p>
 
   <Form {...otpForm}>
